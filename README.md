@@ -12,11 +12,11 @@ Accepted to the [Generative Models for Computer Vision Workshop](https://generat
 ## Model-Agnostic Zero-Shot Classifcation
 <img src="https://user-images.githubusercontent.com/41477139/231360240-2bf404a2-3526-40ba-9a67-5d116e66af63.png " data-canonical-src="https://user-images.githubusercontent.com/41477139/231360240-2bf404a2-3526-40ba-9a67-5d116e66af63.png " width="600" height="600" />
 
-
+<!-- 
 | Dataset | Model | Base Class | Best tricks |
 | ---     | ---   | ---        | ---         |
 |CIFAR10  | CLIP-ResNet50 | 75.6 | - |
-|         | ResNet50 | 60.5 | 81 (+20.5)|
+|         | ResNet50 | 60.5 | 81 (+20.5)| -->
 
 ## Requirements
 For training and testing
@@ -45,10 +45,37 @@ These are the exact generated synthetic datasets and images used to train the ne
 
 ## Usage
 ### How to generate your own synthetic datasets
+You can generate your own synthetic datasets using one of the tricks with the `create_dataset.py` file. First, ensure the file is located in the same directoy as your [Stable Diffusion repository](https://github.com/CompVis/stable-diffusion) as the file will attempt to run `scripts/txt2img.py`.  
+e.g. `python create_dataset.py --classes dog cat --trick class_prompt --outdir synthetic_datasets/cats_and_dogs`
+
+This file has the following arguments:  
+##### General arguments
+* `--classes` A list of the class labels used in generating images.
+* `--trick` The specific trick you wish to use when generating the dataset. Limited to `"class_prompt", "multidomain", "random_scale"`.
+* `--outdir` The directory to save the generated images in.
+
+##### Multi-domain arguments
+* `--domains` A list of domains to use when generating the synthetic images.
+
+##### Random scale arguments
+* `--min_scale` The minimum possible value for the unconditional random guidance. Default `1`.
+* `--max_scale` The maximum possible value for the unconditional random guidance. Default `5`.
+
+##### Stable Diffusion arguments
+* `--n_samples` The number of images to produce in a single round of generation. Default `2`.
+* `--n_iter` The number of iterations to run of producing `n_samples` numbers of imgaes. Default `1000`.
+* `--ddim_steps`The number of DDIM sampling steps. Default `40`.
+* `--seed` The seed (for reproducible sampling). Default `64`.
+* `--H` The height of the images to generate. Default `512`.
+* `--W` The width of the images to generate. Default `512`.
 
 ### How to train on the synthetic dataset
+You can train a network on a synthetic dataset while testing it on a real dataset using `train_network.py`.  
+e.g. `python train_network.py --model Vit-B --epoch 10 --batch_size 32 --dataset cifar10 --model_path saved_models/ --syn_data_location data/synthetic_cifar10 --real_data_location data/real_cifar10`
 
 ### How to test on the real dataset
+You can test networks using `eval_network.py`.  
+e.g. `python eval_network.py --model Vit-B --model_path saved_models/trained_model.pt --dataset cifar10 --real_data_location data/real_cifar10`
 
 ## Acknowledgements
 This work has been supported by the [SmartSat CRC](https://smartsatcrc.com/),
