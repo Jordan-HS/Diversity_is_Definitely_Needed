@@ -1,0 +1,8 @@
+from data.DataModule import DataModule
+
+from data.CIFAR10_generated.cifar10_gen_datamodule import CIFAR10Generated
+from data.CIFAR10.cifar10_datamodule import CIFAR10DataModule
+from data.CIFAR100_generated.cifar100_gen_datamodule import CIFAR100Generated
+from data.CIFAR100.cifar100_datamodule import CIFAR100DataModule
+from data.EuroSat.EuroSat_datamodule import EuroSATDatamodule
+# from data.RESISC45.RESISC45Datamodule import RESISC45Datamodule
