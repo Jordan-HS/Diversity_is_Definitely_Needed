@@ -26,10 +26,11 @@ parser.add_argument("--dataset", dest="dataset", type=str, required=True)
 parser.add_argument("--img_size", dest="img_size", type=int, default=32)
 parser.add_argument("--lr", type=float, default=1e-4)
 parser.add_argument("--wd", type=float)
-parser.add_argument("--model_path", type=str)
+parser.add_argument("--model_path", type=str, default=None)
 parser.add_argument("--wandb", dest="wandb", action="store_true", default=False)
-parser.add_argument("--syn_data_location", dest="syn_data_location", type=str, default=None)
-parser.add_argument("--real_data_location", dest="real_data_location", type=str, default=None)
+parser.add_argument("--syn_data_location", dest="syn_data_location", type=str, default=None, required=True)
+parser.add_argument("--real_data_location", dest="real_data_location", type=str, default=None, required=True)
+
 
 args = parser.parse_args()
 
@@ -38,13 +39,11 @@ LR = args.lr
 BATCH_SIZE = args.batch_size
 
 if args.model_path is None:
-    name = f"{args.model} - {args.dataset} {args.syn_amount} syn pretraining"
-    save_path = f"saved_models_v3/{args.model}/{args.dataset}/"
-    save_name = f"{args.model}_{args.epoch}_pretrained_{args.syn_amount}_gen_data.pt"
+    save_path = f"saved_models/{args.model}/{args.dataset}/"
+    save_name = f"{args.model}_{args.epoch}_syn_trained.pt"
 else: 
-    name = f"{args.model} - {args.dataset} {args.syn_amount} syn finetune"
-    save_path = f"saved_models_v3/{args.model}/{args.dataset}/"
-    save_name = f"{args.model}_{args.epoch}_finetune_{args.syn_amount}_gen_data.pt"
+    save_path = os.path.split(args.model_path)[-1]
+    save_name = os.path.join(*os.path.split(args.model_path)[:-1])
 
 if not os.path.exists(save_path):
     os.makedirs(save_path)
