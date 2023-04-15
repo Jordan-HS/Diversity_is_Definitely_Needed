@@ -71,11 +71,32 @@ This file has the following arguments:
 
 ### How to train on the synthetic dataset
 You can train a network on a synthetic dataset while testing it on a real dataset using `train_network.py`.  
-e.g. `python train_network.py --model Vit-B --epoch 10 --batch_size 32 --dataset cifar10 --model_path saved_models/ --syn_data_location data/synthetic_cifar10 --real_data_location data/real_cifar10`
+e.g. `python train_network.py --model Vit-B --epoch 10 --batch_size 32 --dataset cifar100_generated_32A  --syn_data_location data/synthetic_cifar10 --real_data_location data/real_cifar10`
+
+##### Arguments
+* `--model` The image classification model to train. Limited to `MBV3, Vit-B, Vit-S, RS50, RS101, convnext, convnext-s`
+* `--epoch` Defualt `50`. The number of epochs to train for.
+* `--batch_Size` Defualt `64`. The batch size to use for training and testing.
+* `--dataset` The name of the synthetic dataset to use, e.g. `cifar100_generated_32A`. NOTE: The dataset needs to already be extracted from its `.tar.gz` compressed version if downloaded from one of the above links.
+* `--img_size` Defualt `32`. The image size of the dataset, can be used to resize the dataset.
+* `--lr` Defualt `1e-4`. The initial learning rate.
+* `--wd` Default `0.9`. Weight decay used in training.
+* `--model_path` Optional. Path to a pytorch model, the script will then load the weights from this path.
+* `--wandb` Default False. This flags the use of the wandb logger. NOTE: Please check the init settings for the `logger` variable inside the training script if you wish to use the wandb logger.
+* `--syn_data_location` The location of the synthetic dataset.
+* `--real_data_location` The location of the real dataset. 
 
 ### How to test on the real dataset
 You can test networks using `eval_network.py`.  
 e.g. `python eval_network.py --model Vit-B --model_path saved_models/trained_model.pt --dataset cifar10 --real_data_location data/real_cifar10`
+
+##### Arguments
+* `--model` The image classification model to train. Limited to `MBV3, Vit-B, Vit-S, RS50, RS101, convnext, convnext-s`
+* `--batch_Size` Defualt `64`. The batch size to use for training and testing.
+* `--dataset` The name of the real dataset to use, e.g. `cifar100`. 
+* `--img_size` Defualt `32`. The image size of the dataset, can be used to resize the dataset.
+* `--real_data_location` The location of the real dataset. 
+
 
 ## Acknowledgements
 This work has been supported by the [SmartSat CRC](https://smartsatcrc.com/),
@@ -83,3 +104,13 @@ whose activities are funded by the Australian Government’s
 CRC Program; and partly supported by [Sentient Vision Systems](https://sentientvision.com/). Sentient Vision Systems is one of the leading Australian developers of computer vision and artificial intelligence software solutions for defence and civilian applications.
 
 ## Citation
+```BibTex
+@inproceedings{
+  shipard2020DDN,
+  title={Diversity is Definitely Needed: Improving Model-Agnostic Zero-shot Classification via Stable Diffusion},
+  author={Jordan Shipard, Arnold Wiliem, Kien Nguyen Thanh, Wei Xiang, Clinton Fookes},
+  booktitle={Computer Vision and Pattern Recognition Workshop on Generative Models for Computer Vision},
+  year={2023},
+  url={https://arxiv.org/pdf/1908.09791.pdf}
+}
+```
