@@ -8,22 +8,20 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--model", dest="model", type=str, default="Vit-B")
-parser.add_argument("--epoch", dest="epoch", type=int, default=50)
 parser.add_argument("--batch_size", dest="batch_size", type=int, default=64)
 parser.add_argument("--dataset", dest="dataset", type=str, required=True)
 parser.add_argument("--img_size", dest="img_size", type=int, default=32)
 parser.add_argument("--model_path", type=str)
-parser.add_argument("--wandb", dest="wandb", action="store_true", default=False)
 parser.add_argument("--real_data_location", dest="real_data_location", type=str, default=None)
 
 args = parser.parse_args()
 BATCH_SIZE = args.batch_size
 
-if "cifar10_" in args.dataset:
+if args.dataset == "cifar10":
     real_datamodule = CIFAR10DataModule(batch_size=BATCH_SIZE, root_dir=args.real_data_location)
-elif "cifar100_" in args.dataset:
+elif args.dataset == "cifar100":
     real_datamodule = CIFAR100DataModule(batch_size=BATCH_SIZE, root_dir=args.real_data_location)
-elif "eurosat_" in args.dataset:
+elif args.dataset == "eurosat":
     real_datamodule = EuroSATDatamodule(batch_size=BATCH_SIZE, root_dir=args.real_data_location)
 
     

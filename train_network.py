@@ -11,21 +11,18 @@ from models import mobilenet_v3_small, ViT
 import torchmetrics
 from tqdm import tqdm
 from torchvision.models import resnet50, resnet101, convnext_base, convnext_small
-from torch.utils.data import DataLoader, ConcatDataset
 import argparse
-import subprocess
-from torch.utils.data import ConcatDataset, DataLoader
+
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--model", dest="model", type=str, default="Vit-B")
 parser.add_argument("--epoch", dest="epoch", type=int, default=50)
 parser.add_argument("--batch_size", dest="batch_size", type=int, default=64)
-parser.add_argument("--syn_amount", dest="syn_amount", type=float, default=1.0)
 parser.add_argument("--dataset", dest="dataset", type=str, required=True)
 parser.add_argument("--img_size", dest="img_size", type=int, default=32)
 parser.add_argument("--lr", type=float, default=1e-4)
-parser.add_argument("--wd", type=float)
+parser.add_argument("--wd", type=float, default=0.9)
 parser.add_argument("--model_path", type=str, default=None)
 parser.add_argument("--wandb", dest="wandb", action="store_true", default=False)
 parser.add_argument("--syn_data_location", dest="syn_data_location", type=str, default=None, required=True)
@@ -40,7 +37,7 @@ BATCH_SIZE = args.batch_size
 
 if args.model_path is None:
     save_path = f"saved_models/{args.model}/{args.dataset}/"
-    save_name = f"{args.model}_{args.epoch}_syn_trained.pt"
+    save_name = f"{args.model}_syn_trained.pt"
 else: 
     save_path = os.path.split(args.model_path)[-1]
     save_name = os.path.join(*os.path.split(args.model_path)[:-1])
@@ -65,10 +62,10 @@ real_datamodule.setup("test", img_size=args.img_size)
 real_test_dataloader = real_datamodule.test_dataloader()
 
 
-if args.syn_amount < 1.0:
-    gen_datamodule.setup(split_amount=args.syn_amount, img_size=args.img_size)
-else:
-    gen_datamodule.setup(stage = "fit", img_size=args.img_size)
+# if args.syn_amount < 1.0:
+#     gen_datamodule.setup(split_amount=args.syn_amount, img_size=args.img_size)
+# else:
+gen_datamodule.setup(stage = "fit", img_size=args.img_size)
     
 train_dataloader = gen_datamodule.train_dataloader()
 
@@ -103,7 +100,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer=optim, T_max=EP
 train_metric = torchmetrics.Accuracy().cuda()
 test_metric = torchmetrics.Accuracy().cuda()
 
-
+name = "" # wandb name
 logger = wandb.init(job_type="results", project="DDN", name=name,
                                                         config={
                                                         "total_epochs": EPOCHS,
