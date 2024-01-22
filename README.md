@@ -106,7 +106,7 @@ CRC Program; and partly supported by [Sentient Vision Systems](https://sentientv
 ## Citation
 ```BibTex
 @inproceedings{
-  shipard2020DDN,
+  shipard2023DDN,
   title={Diversity is Definitely Needed: Improving Model-Agnostic Zero-shot Classification via Stable Diffusion},
   author={Jordan Shipard, Arnold Wiliem, Kien Nguyen Thanh, Wei Xiang, Clinton Fookes},
   booktitle={Computer Vision and Pattern Recognition Workshop on Generative Models for Computer Vision},
