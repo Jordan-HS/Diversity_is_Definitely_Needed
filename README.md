@@ -35,11 +35,14 @@ Datasets are hosted on [Zenodo](https://zenodo.org/record/7861015) with the down
 | CIFAR10 Class Prompt | [cifar10_generated_class_prompt_32A.tar.gz](https://zenodo.org/record/7861015/files/cifar10_generated_class_prompt_32A.tar.gz?download=1)|
 | CIFAR10 Multi-Domain | [cifar10_generated_multidomain_32A.tar.gz](https://zenodo.org/record/7861015/files/cifar10_generated_multidomain_32A.tar.gz?download=1)|
 | CIFAR10 Random Guidance | [cifar10_generated_random_scale_32A.tar.gz](https://zenodo.org/record/7861015/files/cifar10_generated_random_scale_32A.tar.gz?download=1)| 
+| CIFAR10 Merged | [cifar10_generated_merged_32A.tar.gz](https://zenodo.org/records/10558823/files/cifar10_generated_merged_32A.tar.gz?download=1)|
 | CIFAR100 Base Class | [cifar100_generated_32A.tar.gz](https://zenodo.org/record/7861015/files/cifar100_generated_32A.tar.gz?download=1)|
 | CIFAR100 Multi-Domain | [cifar100_generated_multidomain_32A.tar.gz](https://zenodo.org/record/7861015/files/cifar100_generated_multidomain_32A.tar.gz?download=1)|
 | CIFAR100 Random Scale | [cifar100_generated_random_scale_32A.tar.gz](https://zenodo.org/record/7861015/files/cifar100_generated_random_scale_32A.tar.gz?download=1)
+| CIFAR100 Merged | [Cifar100_generated_merged_32A.tar.gz](https://zenodo.org/records/10558823/files/cifar100_generated_merged_32A.tar.gz?download=1)|
 | EuroSAT Base Class | [EuroSat_generated_64.tar.gz](https://zenodo.org/record/7861015/files/EuroSat_generated_64.tar.gz?download=1)|
-| EuroSAT Random Scale | [EuroSat_generated_random_scale_64.tar.gz](https://zenodo.org/record/7861015/files/EuroSat_generated_random_scale1_64.tar.gz?download=1)
+| EuroSAT Random Scale | [EuroSat_generated_random_scale_64.tar.gz](https://zenodo.org/record/7861015/files/EuroSat_generated_random_scale1_64.tar.gz?download=1)|
+| EuroSAT Merged | [EuroSat_generated_merged_64.tar.gz](https://zenodo.org/records/10558823/files/EuroSat_generated_merged_64.tar.gz?download=1)|
 
 These are the exact generated synthetic datasets and images used to train the networks in the paper. All datasets were generated using [Stable Diffusion V1.4](https://github.com/CompVis/stable-diffusion). '32A' refers to the image size of 32x32 pixels, which was resized from 512x512 with anti-aliasing. '64' is 64x64 resized from 512x512 without anti-aliasing. Only the datasets which improve performance above the base class (e.g. the best tricks) are currently hosted. If you would like any of the other datasets from the paper either raise an issue, or email me at jordan.shipard@hdr.qut.edu.au.
 
